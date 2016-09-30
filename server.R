@@ -2,15 +2,15 @@ library(shiny)
 
 shinyServer(function(input, output) {
   
-  points1 <- reactive({
+  MxMunicipios1 <- reactive({
+   
+   PerCapitaL <- ((input$PerCapita*365)*(1 + input$Loss))/1000
+   
+   SurplusRuralPobl <- MxMunicipios$prod2010 -  (MxMunicipios$Pob_rur10 * PerCapitaL)
+   SurplusTotalPobl <- MxMunicipios$prod2010 -  (MxMunicipios$POBTOT10 * PerCapitaL)
   
-    if (input$Cultivo != "All") {
-      Tabla1 <- MxMunicipios1[MxMunicipios1$Cultivo %in% input$Cultivo,]
-    }else {Tabla1 <- MxMunicipios1
-    }
-    #value <- Tabla1[,Tabla1$Variables %in% input$Variables]
-    #Tabla1 <- data.frame(Tabla1, value)
-    
+   Tabla1 <- data.frame(MxMunicipios, SurplusTotalPobl, SurplusRuralPobl)  
+   
   })
     
   
@@ -19,82 +19,52 @@ shinyServer(function(input, output) {
     filename = function(){
       paste("tabla", '.csv', sep = '')},
     content = function(file){
-      write.csv(points1(), file)
+      write.csv(MxMunicipios1(), file)
     }
   )
     
-#  MxMunicipios2 <- HHH %>%
-#    filter(Cultivo == "Higo")
-#  
-#  mxmunicipio_choropleth(MxMunicipios2, 
-#                         num_colors = 1,
-#                         title = "Superficie cosechada")
-  
-  
-  #For do a zoom
-  #head(MxMunicipios)
-  #mxmunicipio_choropleth(MxMunicipios2, num_colors = 1,
-  #                       zoom = subset(MxMunicipios2, state_name %in% c("Morelos","Hidalgo","Ciudad de México"))$region,
-  #                       title = "Valor de Beta, ?rea sembrada con ma?z in South East of M?xico") 
-  
+
+  MxMunicipios2 <- reactive({
+    TablaH <- MxMunicipios1()
+    value <- decostand(TablaH[,input$Variable1], "normalize")
+    TablaH <- data.frame(TablaH, value)
+  })
   
   output$mymap <- renderLeaflet({
-    MxMunicipios2 <- points1()
+    HHH1 <- MxMunicipios2()
     
-    MxMunicipios3 <- merge(TTT, MxMunicipios2[,c(1,14:18)], by = "region", all.x = T)
-    dim(MxMunicipios3)
-    head(MxMunicipios3)
-    #HHH <- brewer.pal(12, "Paired")
-    #HHH <- c("white",brewer.pal(1, "Accent"),brewer.pal(6, "Reds"))
-    HHH <- c("white",brewer.pal(6, "Reds"))
-    MxMunicipios3$value[is.na(MxMunicipios3$value)] <- 0
+    #MxMunicipios3 <- merge(TTT, MxMunicipios2[,c(1,14:18)], by = "region", all.x = T)
+    #value <- c(MxMunicipios2$input %in% input$Variable1)
+    #MxMunicipios3 <- data.frame(MxMunicipios2, value)
+    #MxMunicipios3 <- MxMunicipiosLL
     
-    pal <- colorNumeric(HHH, domain = MxMunicipios3$value)
+    #HHH <- brewer.pal(12, "")
+    HHH <- c(brewer.pal(3, "Reds"),brewer.pal(3, "Blues"))
+    #HHH <- c("white",brewer.pal(6, "Reds"))
+    #MxMunicipios3$value[is.na(MxMunicipios3$value)] <- 0
+    
+    pal <- colorNumeric(HHH, domain = HHH1$value)
     
     #head(MxMunicipios2)
     
-    mxmunicipio_leaflet(MxMunicipios3,
+    mxmunicipio_leaflet(HHH1,
                         pal,
-                        ~ pal(value), mapzoom = 6,
-                        ~ sprintf("Cultivo: %s<br/>State: %s<br/>Municipio: %s<br/>Sup Sembrada (ha): %s<br/>Vol. Producción (Ton): %s <br/>Vol. Prod $: %s",
-                                  Cultivo,state_name, municipio_name, round(value,3), VolProd_Ton, VolProd_Pesos)) %>%
-      addLegend(position = "topright", pal = pal, values = MxMunicipios3$value,
-                title = "Superficie<br>Sembrada (ha)") %>%
+                        ~pal(value), mapzoom = 6,
+                        ~ sprintf("IdCode: %s<br/>State: %s<br/>Municipio: %s<br/>Pob. Total: %s<br/>Pob. Rural: %s<br/>SurPlusTPobl: %s<br/>SurPlusPob. Rural: %s",
+                                  region,state_name, municipio_name, POBTOT10,Pob_rur10, round(SurplusTotalPobl), round(SurplusRuralPobl))) %>%
+      addLegend(position = "topright", pal = pal, values = HHH1$value,
+                title = "variable<br>Seleccionada") %>%
       addProviderTiles("CartoDB.Positron") 
     
   }
   )
   
+#  output$summary <- renderPrint({
+#    dataset <- MxMunicipios2()
+#    summary(dataset[,15:ncol(dataset)],3)
+#  })
+  
   ####################################
-  # Ventana de Diversidad
-  Narbat1 <- reactive({
-    
-    TableL4 <- MxMunicipios5
-    
-  })
-  # 
-  
-  
-  output$Rarefraction <- renderPlot({
-    TableL5 <- Narbat1()
-    #TableL5 <- aggregate(Narbat2[,-1],list(Narbat2[,1]), FUN = sum, na.rm = T)
-    
-    
-    LL35 <- RarefraccionCC(TableL5[,-c(1)], TableL5[,1])
-    return(LL35)
-  })
-  
-  
-  output$Renyi1 <- renderPlotly({
-    TableL5 <- Narbat1()
-    #TableL5 <- aggregate(Narbat2[,-1],list(Narbat2[,1]), FUN = sum, na.rm = T)
-    
-    
-    LL35 <- RenyiCC(TableL5[,-c(1)], TableL5[,1])
-    #return(LL35)
-    gg <- ggplotly(LL35)
-    gg
-  })
   
   
 })
