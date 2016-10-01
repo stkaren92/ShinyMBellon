@@ -2,7 +2,7 @@ library(shiny)
 
 
 shinyUI(navbarPage(
-  title = "Cultivos en México",
+  title = "Mauricio Bellon paper",
   
 
   

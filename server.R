@@ -39,7 +39,7 @@ shinyServer(function(input, output) {
     #MxMunicipios3 <- MxMunicipiosLL
     
     #HHH <- brewer.pal(12, "")
-    HHH <- c(brewer.pal(3, "Reds"),brewer.pal(3, "Blues"))
+    HHH <- c(rev(brewer.pal(2, "Reds")),brewer.pal(2, "Blues"))
     #HHH <- c("white",brewer.pal(6, "Reds"))
     #MxMunicipios3$value[is.na(MxMunicipios3$value)] <- 0
     
@@ -50,8 +50,8 @@ shinyServer(function(input, output) {
     mxmunicipio_leaflet(HHH1,
                         pal,
                         ~pal(value), mapzoom = 6,
-                        ~ sprintf("IdCode: %s<br/>State: %s<br/>Municipio: %s<br/>Pob. Total: %s<br/>Pob. Rural: %s<br/>SurPlusTPobl: %s<br/>SurPlusPob. Rural: %s",
-                                  region,state_name, municipio_name, POBTOT10,Pob_rur10, round(SurplusTotalPobl), round(SurplusRuralPobl))) %>%
+                        ~ sprintf("IdCode: %s<br/>State: %s<br/>Municipio: %s<br/>Producción: %s<br/>Pob. Total: %s<br/>Pob. Rural: %s<br/>SurPlusTPobl: %s<br/>SurPlusPob. Rural: %s",
+                                  region,state_name, municipio_name, prod2010, POBTOT10, Pob_rur10, round(SurplusTotalPobl), round(SurplusRuralPobl))) %>%
       addLegend(position = "topright", pal = pal, values = HHH1$value,
                 title = "variable<br>Seleccionada") %>%
       addProviderTiles("CartoDB.Positron") 

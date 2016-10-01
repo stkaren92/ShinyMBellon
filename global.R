@@ -10,7 +10,7 @@ library(tidyr)
 library(reshape)
 library(vegan)
 
-setwd("~/Dropbox/GitHub/ShinyMBellon/")
+#setwd("~/Dropbox/GitHub/ShinyMBellon/")
 Municipios <- read.csv("DatosShiny.csv", header = T, sep = "," , dec = ".")
 head(Municipios)
 

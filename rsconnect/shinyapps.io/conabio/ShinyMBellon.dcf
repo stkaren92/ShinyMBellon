@@ -1,0 +1,9 @@
+name: ShinyMBellon
+account: conabio
+server: shinyapps.io
+appId: 128829
+bundleId: 573454
+url: https://conabio.shinyapps.io/ShinyMBellon/
+when: 1475278991.5434
+asMultiple: FALSE
+asStatic: FALSE
