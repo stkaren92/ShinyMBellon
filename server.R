@@ -35,6 +35,7 @@ shinyServer(function(input, output) {
     TablaH <- MxMunicipios1()
     #TablaH <- subset(TablaH, state_name %in% input%State1)
     value <- decostand(TablaH[,input$Variable1], "normalize")
+    #value <- TablaH[,input$Variable1]
     TablaH <- data.frame(TablaH, value)
   })
   

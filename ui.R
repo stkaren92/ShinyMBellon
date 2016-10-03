@@ -41,10 +41,11 @@ shinyUI(navbarPage(
                 downloadButton('downloadData', 'Download como csv'),
                 
                 br(),
-                h5("comments: aponce@conabio.gob.mx or aponce73pm@gmail.com"),
-                #br(),
-                h4("Github:"),
-                tags$a(href = "https://github.com/APonce73/SagarpaShiny", "Cultivos"),
+                h5("comments: aponce@conabio.gob.mx"),
+                h5("aponce73pm@gmail.com"),
+                br(),
+                h4("Code:"),
+                tags$a(href = "https://github.com/APonce73/ShinyMBellon", "Github"),
                 
                 
                  #c("All", unique(as.character(TableL$Raza_primaria)))),
