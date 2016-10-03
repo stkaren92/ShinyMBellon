@@ -34,15 +34,18 @@ head(df_mxmunicipio)
 
 
 
-
+head(df_mxmunicipio)
+dim(df_mxmunicipio)
 #Solo valores con pvalue de beta < 0.05
-TTT <- df_mxmunicipio[,1:8]
+TTT <- df_mxmunicipio[,c(1:8,16)]
 head(TTT)
 str(TTT)
 
 #Para el Area
 MxMunicipios <- merge(TTT, Municipios, by = "region")
+head(MxMunicipios)
 
+MxMunicipios$state_name <- as.factor(MxMunicipios$state_name)
 #MxMunicipios10 <- MxMunicipios %>%
 #  group_by(prod2010 <= 1000)
 

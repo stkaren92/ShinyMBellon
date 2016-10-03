@@ -1,4 +1,5 @@
 library(shiny)
+library(knitr)
 
 
 shinyUI(navbarPage(
@@ -17,18 +18,24 @@ shinyUI(navbarPage(
              sidebarLayout(
                sidebarPanel(
                  
-                 numericInput('PerCapita','Daily Per-Capita Consumption (kg):', 0.23782, min = 0, max = 1),
+                 numericInput('PerCapita',h5('Daily Per-Capita Consumption (kg):'), 0.23782, min = 0, max = 1),
                  
-                 numericInput('Loss','Post-harvest losses:', 0.25, min = 0, max = 1),
+                 numericInput('Loss', h5('Post-harvest losses:'), 0.25, min = 0, max = 1),
                 
                  selectInput(inputId = "Variable1",
-                             label = h6("Variable:"), choices = VAL,
+                             label = h5("Variable:"), choices = VAL,
                              selected = "SurplusRuralPobl"),
-                 submitButton("Submit"),
-                 #selectInput(inputId = "Variable1",
-                  #           label = h6("Variable:"), choices = names(MxMunicipios1)[15:18],
-                  #           selected = names(MxMunicipios1)[1]),
-                             
+                 
+                 selectInput(inputId = "State1",
+                             label = h5("State:"), 
+                             c("All", levels(MxMunicipios$state_name))
+                             ),
+                 br(),
+                 numericInput('Loss1',h5('losses on field (%):'), 0, min = 0, max = 100),
+                
+                br(),  
+                submitButton("Submit"),
+                 
                 br(),
                 br(),
                 downloadButton('downloadData', 'Download como csv'),
@@ -47,7 +54,7 @@ shinyUI(navbarPage(
                  width = 2),
                fluidRow(
                  #verbatimTextOutput("summary"),
-                 column(9,leafletOutput("mymap", width = "1300", height = "1000"))
+                 column(9,leafletOutput("mymap", width = "1200", height = "800"))
                )
                #leafletOutput("mymap", width = "100%", height = "100%")
              )
