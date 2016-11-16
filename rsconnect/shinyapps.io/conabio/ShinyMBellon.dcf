@@ -2,8 +2,9 @@ name: ShinyMBellon
 account: conabio
 server: shinyapps.io
 appId: 128829
-bundleId: 575581
+bundleId: 616422
 url: https://conabio.shinyapps.io/ShinyMBellon/
-when: 1475528690.39719
+when: 1479317319.45552
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: DatosShiny.xls

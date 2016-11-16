@@ -11,7 +11,7 @@ library(reshape)
 library(vegan)
 
 #setwd("~/Dropbox/GitHub/ShinyMBellon/")
-Municipios <- read.csv("DatosShiny.csv", header = T, sep = "," , dec = ".")
+Municipios <- read.delim("DatosShiny.csv", header = T, sep = "," , dec = ".")
 head(Municipios)
 
 Municipios$Idcode <- sprintf("%05d", Municipios$Idcode)
