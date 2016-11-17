@@ -14,6 +14,11 @@ library(vegan)
 Municipios <- read.delim("DatosShiny.csv", header = T, sep = "," , dec = ".")
 head(Municipios)
 
+levels(as.factor(Municipios$rend2010))
+
+Municipios$rend2010
+
+
 Municipios$Idcode <- sprintf("%05d", Municipios$Idcode)
 dim(Municipios)
 head(Municipios)
@@ -22,10 +27,17 @@ names(Municipios)[1] <- c("region")
 str(Municipios)
 tail(Municipios,50)
 
+names(Municipios)
 dim(Municipios)
 Municipios <- Municipios %>%
   filter(!is.na(region))
+  #slice((rend2010 > 3))
   #filter(!is.na(aplt2010))
+
+#head(Municipios1)
+
+
+#Municipios1$rend2010
 
 dim(Municipios)
 
@@ -46,6 +58,8 @@ MxMunicipios <- merge(TTT, Municipios, by = "region")
 head(MxMunicipios)
 
 MxMunicipios$state_name <- as.factor(MxMunicipios$state_name)
+MxMunicipios$Categorie <- as.factor(MxMunicipios$Categorie)
+
 #MxMunicipios10 <- MxMunicipios %>%
 #  group_by(prod2010 <= 1000)
 

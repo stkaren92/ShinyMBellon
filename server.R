@@ -8,6 +8,10 @@ shinyServer(function(input, output) {
     if (input$State1 != "All") {
       MxMunicipios <- MxMunicipios[MxMunicipios$state_name %in% input$State1,]
     }else MxMunicipios <- MxMunicipios
+    
+    if (input$Categorie1 != "All") {
+      MxMunicipios <- MxMunicipios[MxMunicipios$Categorie %in% input$Categorie1,]
+    }else MxMunicipios <- MxMunicipios
    
    prod2010a <- MxMunicipios$prod2010 - (MxMunicipios$prod2010 * (input$Loss1/100))
    

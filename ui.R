@@ -30,6 +30,10 @@ shinyUI(navbarPage(
                              label = h5("State:"), 
                              c("All", levels(MxMunicipios$state_name))
                              ),
+                 
+                 checkboxGroupInput("Categorie1", label = h6("Categorie (Ton/ha):"),
+                                    choice = levels(MxMunicipios$Categorie), selected = levels(MxMunicipios$Categorie)),
+                 
                  br(),
                  numericInput('Loss1',h5('losses on field (%):'), 0, min = 0, max = 100),
                 
