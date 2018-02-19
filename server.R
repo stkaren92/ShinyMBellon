@@ -9,30 +9,36 @@ shinyServer(function(input, output) {
       MxMunicipios <- MxMunicipios[MxMunicipios$state_name %in% input$State1,]
     }else MxMunicipios <- MxMunicipios
     
-    if (input$Categorie1 != "All") {
-      MxMunicipios <- MxMunicipios[MxMunicipios$Categorie %in% input$Categorie1,]
-    }else MxMunicipios <- MxMunicipios
+   # if (input$Categorie1 != "All") {
+  #    MxMunicipios <- MxMunicipios[MxMunicipios$Categorie %in% input$Categorie1,]
+  #  }else MxMunicipios <- MxMunicipios
    
-   prod2010a <- MxMunicipios$prod2010 - (MxMunicipios$prod2010 * (input$Loss1/100))
+   #prod2010a <- MxMunicipios$prod2010 - (MxMunicipios$prod2010 * (input$Loss1/100))
+   
+   prod2010a <- MxMunicipios$prod2010 
    
    PerCapitaL <- ((input$PerCapita*365)*(1 + input$Loss))/1000
    
-   SurplusRuralPobl <- prod2010a -  (MxMunicipios$Pob_rur10 * PerCapitaL)
-   SurplusTotalPobl <- prod2010a -  (MxMunicipios$POBTOT10 * PerCapitaL)
+   #Urbana1 <- MxMunicipios$POBTOT10 - MxMunicipios$Pob_rur10
+   Rural <- prod2010a -  (MxMunicipios$Pob_rur10 * PerCapitaL)
+   Total <- prod2010a -  (MxMunicipios$POBTOT10 * PerCapitaL)
+   
+   #Urbana <- prod2010a -  (Urbana1 * PerCapitaL)
   
-   Tabla1 <- data.frame(MxMunicipios, SurplusTotalPobl, SurplusRuralPobl)  
+   Tabla1 <- data.frame(MxMunicipios, Total, Rural) 
+   #names(Tabla1) <- c("MxMunicipios", "Total", "Rural") 
    
   })
     
   
   #Para la tabla en csv
-  output$downloadData <- downloadHandler(
-    filename = function(){
-      paste("tabla", '.csv', sep = '')},
-    content = function(file){
-      write.csv(MxMunicipios1(), file)
-    }
-  )
+#  output$downloadData <- downloadHandler(
+#    filename = function(){
+#      paste("tabla", '.csv', sep = '')},
+#    content = function(file){
+#      write.csv(MxMunicipios1(), file)
+#    }
+#  )
     
 
   MxMunicipios2 <- reactive({
@@ -60,6 +66,8 @@ shinyServer(function(input, output) {
     
     pal <- colorNumeric(HHH, domain = HHH1$value)
     
+    pal1 <- colorNumeric('OrRd', 2)
+    
     #head(MxMunicipios2)
     
     mxmunicipio_leaflet(HHH1,
@@ -67,11 +75,19 @@ shinyServer(function(input, output) {
                         pal, mapzoom = 6,
                         ~pal(value),
                         ~ sprintf("IdCode: %s<br/>State: %s<br/>Municipio: %s<br/>Producción: %s<br/>Pob. Total: %s<br/>Pob. Rural: %s<br/>SurPlusTPobl: %s<br/>SurPlusPob. Rural: %s",
-                                  region,state_name, municipio_name, prod2010, POBTOT10, Pob_rur10, round(SurplusTotalPobl), round(SurplusRuralPobl))) %>%
+                                  region,state_name, municipio_name, prod2010, POBTOT10, Pob_rur10, round(Total), round(Rural))) %>%
+      #fitBounds(~min(long), ~min(lat), ~max(long), ~max(lat)) %>%
                           
-      addLegend(position = "topright", pal = pal, values = HHH1$value,
-                title = "variable<br>Seleccionada") %>%
-      addProviderTiles("CartoDB.Positron") 
+    #  addLegend(position = "topright", pal = pal, 
+    #            values = HHH1$value,
+    #            title = "variable<br>Selected") %>%
+      
+      # Add common legend
+      addLegend(colors = c("#3068b2","#bf3750","#050505"), position = "topright", 
+                labels = c("Surplus of <br>maize", "Deficit of <br>maize","No data"),
+                opacity = c(0.1, 0.1, 0.1)) %>%
+      
+        addProviderTiles("CartoDB.Positron") 
     
   }
   )

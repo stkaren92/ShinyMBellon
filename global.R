@@ -1,14 +1,14 @@
 library(RColorBrewer)
-library(plotly)
-library(ggplot2)
+library(tidyverse)
+#library(ggplot2)
 library(vegan)
 library(mxmaps)
 library(leaflet)
-library(plyr)
-library(dplyr)
-library(tidyr)
+#library(plyr)
+#library(dplyr)
+#library(tidyr)
 library(reshape)
-library(vegan)
+
 
 #setwd("~/Dropbox/GitHub/ShinyMBellon/")
 Municipios <- read.delim("DatosShiny.csv", header = T, sep = "," , dec = ".")
@@ -17,7 +17,6 @@ head(Municipios)
 levels(as.factor(Municipios$rend2010))
 
 Municipios$rend2010
-
 
 Municipios$Idcode <- sprintf("%05d", Municipios$Idcode)
 dim(Municipios)
@@ -30,7 +29,10 @@ tail(Municipios,50)
 names(Municipios)
 dim(Municipios)
 Municipios <- Municipios %>%
-  filter(!is.na(region))
+  filter(!is.na(region)) %>%
+  filter(!is.na(Categorie)) 
+
+
   #slice((rend2010 > 3))
   #filter(!is.na(aplt2010))
 
@@ -82,5 +84,5 @@ MxMunicipios$Categorie <- as.factor(MxMunicipios$Categorie)
 #head(Tabla1)
 
 
-VAL <- c("SurplusTotalPobl", "SurplusRuralPobl")
+VAL <- c("Total", "Rural")
 
