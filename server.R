@@ -72,10 +72,12 @@ shinyServer(function(input, output) {
     
     mxmunicipio_leaflet(HHH1,
                         #zoom = subset(HHH1, state_name == input$State1)$region,
-                        pal, mapzoom = 6,
+                        pal, 
+                        mapzoom = 6,
                         ~pal(value),
-                        ~ sprintf("IdCode: %s<br/>State: %s<br/>Municipio: %s<br/>Producción: %s<br/>Pob. Total: %s<br/>Pob. Rural: %s<br/>SurPlusTPobl: %s<br/>SurPlusPob. Rural: %s",
-                                  region,state_name, municipio_name, prod2010, POBTOT10, Pob_rur10, round(Total), round(Rural))) %>%
+                        fillOpacity = 1,
+                        ~ sprintf("IdCode: %s<br/>State: %s<br/>Municipio: %s<br/>AreaPlantada: %s<br/>Producción: %s<br/>Rendimiento: %s<br/>Pob. Total: %s<br/>Pob. Rural: %s<br/>SurPlusTPobl: %s<br/>SurPlusPob. Rural: %s",
+                                  region,state_name, municipio_name, aplt2010, prod2010, rend2010, POBTOT10, Pob_rur10, round(Total), round(Rural))) %>%
       #fitBounds(~min(long), ~min(lat), ~max(long), ~max(lat)) %>%
                           
     #  addLegend(position = "topright", pal = pal, 
@@ -83,7 +85,7 @@ shinyServer(function(input, output) {
     #            title = "variable<br>Selected") %>%
       
       # Add common legend
-      addLegend(colors = c("#3068b2","#bf3750","#050505"), position = "topright", 
+      addLegend(colors = c("#3068b2","#bf3750","#050505"), position = "topleft", 
                 labels = c("Surplus of <br>maize", "Deficit of <br>maize","No data"),
                 opacity = c(0.1, 0.1, 0.1)) %>%
       
