@@ -12,12 +12,13 @@ library(knitr)
              bootstrapPage(tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
                            div(img(src = "CONABIO_LOGO_13.JPG", width = "100"), style = "text-align: center;"),
             
-                           h4("De-bunking the myth of the unproductive Mexican campesino maize farmer"),
+                           h3("Reconsidering the contributions of Mexican ", tags$i("campesino"), "to the ongoing evolution of maize under domesticación and to national food supply", style = "text-align: center;"),
+                           h4("Supporting information: A visualization of surplus (blue) or deficit (red) of maize at Municipal level in México"),
                            #h4("Interactive Shiny application with R were performed with data of figure 2. Spatial distribution of the contribution of local rainfed maize production to feed population (rural or total) in the municipalities where maize is produced. Red and blue colors indicates a deficit and surplus, respectively of maize."),
                            #h4("Bellon M.R., et al. 2018"),
                            
                 leafletOutput("mymap", width = "100%", height = "100%"),
-                absolutePanel(top = 130, right = 34,
+                absolutePanel(top = 190, right = 34,
                       
                               numericInput('PerCapita',h5('Daily Per-Capita Consumption (kg):'), 0.23782, min = 0, max = 1),
                               
@@ -38,7 +39,7 @@ library(knitr)
                               
                               
                               ),
-                absolutePanel(bottom = 10, left = 1,
+                absolutePanel(bottom = -190, left = 1,
                               h4("Database:"),
                               tags$a(href = "https://datadryad.org/", "Dryad"),
                               h4("Code:"),
