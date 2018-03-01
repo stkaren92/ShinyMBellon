@@ -6,7 +6,7 @@ Reconsidering the contributions of Mexican to the ongoing evolution of maize und
 
 Shiny is here: https://conabio.shinyapps.io/surplusdeficitmaizemx/
 
-Design with package "mxmaps" of Diego Valles (https://www.diegovalle.net/mxmaps/)
+Designed mainly with R package "mxmaps" of Diego Valles (https://www.diegovalle.net/mxmaps/)
 
 any comment here: aponce73pm@gmail.com
 
