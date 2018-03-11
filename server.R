@@ -17,11 +17,11 @@ shinyServer(function(input, output) {
    
    prod2010a <- MxMunicipios$prod2010 
    
-   PerCapitaL <- ((input$PerCapita*365)*(1 + input$Loss))/1000
+   PerCapitaL <- (input$PerCapita*365)/1000
    
    #Urbana1 <- MxMunicipios$POBTOT10 - MxMunicipios$Pob_rur10
-   Rural <- prod2010a -  (MxMunicipios$Pob_rur10 * PerCapitaL)
-   Total <- prod2010a -  (MxMunicipios$POBTOT10 * PerCapitaL)
+   Rural <- (prod2010a * (1 - (input$Loss/100))) -  (MxMunicipios$Pob_rur10 * PerCapitaL)
+   Total <- (prod2010a * (1 - (input$Loss/100))) -  (MxMunicipios$POBTOT10 * PerCapitaL)
    
    #Urbana <- prod2010a -  (Urbana1 * PerCapitaL)
   
