@@ -1,0 +1,13 @@
+name: surplusdeficitmaizemx6
+title: surplusdeficitmaizemx
+username:
+account: conabio
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 300346
+bundleId: 1271207
+url: https://conabio.shinyapps.io/surplusdeficitmaizemx6/
+when: 1521169972.0003
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: DatosShiny.xls

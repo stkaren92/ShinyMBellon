@@ -76,7 +76,7 @@ shinyServer(function(input, output) {
                         mapzoom = 6,
                         ~pal(value),
                         fillOpacity = 1,
-                        ~ sprintf("IdCode: %s<br/>State: %s<br/>Municipio: %s<br/>AreaPlantada: %s<br/>Producción: %s<br/>Rendimiento: %s<br/>Pob. Total: %s<br/>Pob. Rural: %s<br/>SurPlusTPobl: %s<br/>SurPlusPob. Rural: %s",
+                        ~ sprintf("IdCode: %s<br/>State: %s<br/>Municipio: %s<br/>AreaPlantada: %s ha <br/>Producción: %s t<br/>Rendimiento: %s t<br/>Pob. Total: %s people <br/>Pob. Rural: %s people<br/>SurPlusTPobl: %s t<br/>SurPlusPob. Rural: %s t",
                                   region,state_name, municipio_name, aplt2010, prod2010, rend2010, POBTOT10, Pob_rur10, round(Total), round(Rural))) %>%
       #fitBounds(~min(long), ~min(lat), ~max(long), ~max(lat)) %>%
                           
