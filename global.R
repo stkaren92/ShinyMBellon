@@ -3,14 +3,10 @@ library(tidyverse)
 library(vegan)
 library(mxmaps)
 library(leaflet)
-library(reshape)
 library(shiny)
 library(dplyr)
-library(knitr)
 
 Municipios <- read.delim("data/DatosShiny.csv", header = T, sep = "," , dec = ".")
-
-Municipios$rend2010
 
 Municipios$Idcode <- sprintf("%05d", Municipios$Idcode)
 
@@ -32,4 +28,3 @@ MxMunicipios$state_name <- as.factor(MxMunicipios$state_name)
 MxMunicipios$Categorie <- as.factor(MxMunicipios$Categorie)
 
 VAL <- c("Total", "Rural")
-
