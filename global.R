@@ -1,10 +1,10 @@
+library(dplyr)
+library(leaflet)
+library(mxmaps)
 library(RColorBrewer)
+library(shiny)
 library(tidyverse)
 library(vegan)
-library(mxmaps)
-library(leaflet)
-library(shiny)
-library(dplyr)
 
 Municipios <- read.delim("data/DatosShiny.csv", header = T, sep = "," , dec = ".")
 

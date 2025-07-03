@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .  
+    working_dir: /srv/app
+    ports:
+      - "${SURPLUS_EXTERNAL_PORT:-3838}:3838"
