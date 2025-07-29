@@ -6,6 +6,7 @@ bootstrapPage(tags$style(type = "text/css", "html, body {width:100%;height:100%}
               h4("Maize values are for rainfed agricultural season (May-October) of 2010 from", tags$a(href = "http://infosiap.siap.gob.mx/aagricola_siap_gb/icultivo/", "SIAP.")),
               
               leafletOutput("mymap", width = "100%", height = "100%"),
+              
               absolutePanel(top = 190, right = 34,
                             
                             numericInput('PerCapita',h5('Daily Per-Capita Consumption (kg):'), 0.23782, min = 0, max = 1),
@@ -13,13 +14,14 @@ bootstrapPage(tags$style(type = "text/css", "html, body {width:100%;height:100%}
                             numericInput('Loss', h5('Post-harvest losses (%):'), 25, min = 0, max = 100),
                             
                             selectInput(inputId = "Variable1",
-                                        label = h5("Population:"), choices = VAL,
+                                        label = h5("Population:"), 
+                                        choices = VAL,
                                         selected = "Rural"),
                             
                             selectInput(inputId = "State1",
                                         label = h5("States:"), 
-                                        c("All", levels(MxMunicipios$state_name))
-                            ),
+                                        choices = c("All", levels(MxMunicipios$state_name)),
+                                        selected = "Aguascalientes"),
                             
                             
                             submitButton("Submit")
